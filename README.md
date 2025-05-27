@@ -14,6 +14,6 @@ It features a simple graphical interface built with **CustomTkinter** for the st
 
 ## Project Structure
 
-**start_game.py** — GUI start screen built with CustomTkinter
-**game.py**— Main game logic using OpenCV and Cvzone
-**catch_sound.wav**
+- start_game.py — GUI start screen built with CustomTkinter
+- game.py — Main game logic using OpenCV and Cvzone
+- catch_sound.wav

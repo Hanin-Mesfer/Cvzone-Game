@@ -4,19 +4,18 @@ import time
 from cvzone.HandTrackingModule import HandDetector
 import pygame
 
-# إعداد pygame لتشغيل الأصوات
 pygame.mixer.init()
 catch_sound = pygame.mixer.Sound('mixkit-arcade-game-jump-coin-216.wav')  # حط ملف صوتي بصيغة wav بنفس مسار السكربت
 
-# إعدادات الكاميرا
+
 cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
 
 detector = HandDetector(detectionCon=0.8, maxHands=1)
 
-# متغيرات اللعبة
-num_circles = 5  # عدد الدوائر المتعددة في اللعبة
+
+num_circles = 5  
 circles = []
 circle_radius = 40
 score = 0
@@ -25,7 +24,7 @@ start_time = 0
 game_started = True
 start_time = time.time()
 
-# إنشاء الدوائر العشوائية
+
 def create_circles(num):
     new_circles = []
     for _ in range(num):
@@ -42,7 +41,7 @@ while True:
 
    
 
-    # تشغيل اللعبة
+    
     time_remaining = int(game_duration - (time.time() - start_time))
     hands, img = detector.findHands(frame)
 
@@ -55,26 +54,26 @@ while True:
 
             if dist < circle['radius']:
                 score += 1
-                # إعادة تعيين الدائرة في مكان جديد ولون جديد
+              
                 circle['pos'] = [random.randint(100, 540), random.randint(100, 380)]
                 circle['color'] = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-                # تقليل حجم الدائرة تدريجياً حسب النقاط
+               
                 circle['radius'] = max(20, 40 - score // 5)
-                # تشغيل صوت الإمساك
+                
                 pygame.mixer.Sound.play(catch_sound)
 
-    # تحديث حجم الدوائر حسب النقاط (اختياري)
+    
     for circle in circles:
         circle['radius'] = max(20, 40 - score // 5)
 
-    # رسم الدوائر
+
     for circle in circles:
         cv2.circle(frame, tuple(circle['pos']), circle['radius'], circle['color'], -1)
 
    
 
     font = cv2.FONT_HERSHEY_SIMPLEX
-    color_text = (255, 255, 255)  # أبيض
+    color_text = (255, 255, 255) 
 
     cv2.putText(frame, f'Score: {score}', (20, 50), font, 1.2, color_text, 3)
     cv2.putText(frame, f'Time: {time_remaining}s', (190, 50), font, 1.2, color_text, 3)
